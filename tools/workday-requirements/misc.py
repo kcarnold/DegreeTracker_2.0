@@ -1,0 +1,12 @@
+import pandas as pd, pickle, sys
+pd.set_option('display.width', 250); pd.set_option('display.max_colwidth', 160); pd.set_option('display.max_rows', 500)
+pos, ar, ser, meta = pickle.load(open(sys.argv[1], 'rb'))
+print(meta[['Field Name','Description','Field Source']].to_string())
+print(pos[pos['Reference ID'].isna()][['Program of Study','Academic Requirement','Eligibility Rule Type','Student Eligibility Rule']].to_string())
+print(ser['Open Parenthesis'].value_counts(dropna=False)); print(ser['Close Parenthesis'].value_counts(dropna=False))
+print(ser['Selector for Combination Eligibility Rule'].value_counts(dropna=False))
+print(ser['And/Or'].value_counts(dropna=False))
+print(ser['Inactive'].value_counts(dropna=False)); print(ser['In Use'].value_counts(dropna=False))
+print(ser['Class of Instance'].value_counts(dropna=False))
+print('In Residence', ser['In Residence'].value_counts(dropna=False))
+print('Smart Lists non-null', ser['Smart Lists'].notna().sum(), ser['Smart Lists'].dropna().unique()[:10])
